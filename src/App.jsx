@@ -1,6 +1,10 @@
 import {useState} from 'react'
 import PokemonList from './components/PokemonList/PokemonList'
 import NavBar from './components/NavBar/NavBar';
+import { Route, Routes } from 'react-router';
+import PokemonDetails from './components/PokemonDetails/PokemonDetails';
+import { useParams } from 'react-router';
+
 
 
 const initialState = [
@@ -15,9 +19,20 @@ const App = () => {
   const [pokemon, setPokemon] = useState(initialState)
   return(
     <>
-      <NavBar />
       <h1>Pokemon!</h1>
-      <PokemonList pokemon ={pokemon}/>
+      <NavBar />
+      <Routes>
+        <Route path = '/' element = {<h2>Home Page</h2>}/>
+        <Route
+          path = "/pokemon"
+          element= {<PokemonList pokemon ={pokemon}/>}
+        />
+         <Route
+          path="/pokemon/:pokemonId"
+          element={<PokemonDetails pokemon={pokemon} />}
+        />
+        <Route path='*' element={<h2> 404 Whoops, nothing to see here!</h2>} />
+      </Routes>
     </>
   )
 }
